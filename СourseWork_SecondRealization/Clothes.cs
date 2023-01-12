@@ -2,61 +2,61 @@
 
 namespace СourseWork_SecondRealization
 {
-    internal class Clothes
+    internal class Clothes //Класс "Одежда"
     {
-        private bool AutoSewUp;
-        private String Body;
-        private String Pants;
-        private String Shoes;
-        private Int32 ClothesStatus;
+        private bool AutoSewUp; //Показатель автопочинки одежды
+        private String Body; //Верх одежды
+        private String Pants; //Штаны
+        private String Shoes; //Обувь
+        private Int32 ClothesStatus; //Статус целостности одежды (0-100)
 
-        public Clothes()
+        public Clothes() //Конструктор без параметров
         {
             SetRegularClothes();
             this.AutoSewUp = false;
         }
 
-        public String GetBody()
+        public String GetBody() //Геттер верха одежды
         {
             return this.Body;
         }
 
-        public void SetBody(String body)
+        public void SetBody(String body) //Сеттер верха одежды
         {
             this.Body = body;
         }
 
-        public String GetPants()
+        public String GetPants() //Геттер штанов
         {
             return this.Pants;
         }
 
-        public void SetPants(String pants)
+        public void SetPants(String pants) //Сеттер штанов
         {
             this.Pants = pants;
         }
 
-        public String GetShoes()
+        public String GetShoes() //Геттер обуви
         {
             return this.Shoes;
         }
 
-        public void SetShoes(String shoes)
+        public void SetShoes(String shoes) //Сеттер обуви
         {
             this.Shoes = shoes;
         }
 
-        public Int32 GetClothesStatus()
+        public Int32 GetClothesStatus() //Геттер статуса целостности одежды
         {
             return this.ClothesStatus;
         }
 
-        public void SetClothesStatus(Int32 status)
+        public void SetClothesStatus(Int32 status) //Сеттер целостности одежды
         {
             this.ClothesStatus = status;
         }
 
-        public void SewUpClothes()
+        public void SewUpClothes() //Метод "Починка одежды"
         {
             if (this.ClothesStatus < 100)
             {
@@ -68,7 +68,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        public void TearClothes()
+        public void TearClothes() //Метод "Порвать одежду"
         {
             if (this.Pants != "Брюки")
             {
@@ -84,7 +84,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        public void BuySuit()
+        public void BuySuit() //Метод "Купить костюм"
         {
             this.Body = "Пиджак";
             this.Pants = "Брюки";
@@ -92,7 +92,7 @@ namespace СourseWork_SecondRealization
             this.ClothesStatus = 100;
         }
 
-        public void SetRegularClothes()
+        public void SetRegularClothes() //Сеттер стандартной одежды
         {
             this.Body = "Кофта";
             this.Pants = "Джинсы";
@@ -100,12 +100,12 @@ namespace СourseWork_SecondRealization
             this.ClothesStatus = 100;
         }
 
-        public bool GetAutoSewUp()
+        public bool GetAutoSewUp() //Геттер показателя автопочинки одежды
         {
             return this.AutoSewUp;
         }
 
-        public void SetAutoSewUp(bool argument)
+        public void SetAutoSewUp(bool argument) //Сеттер показателя автопочинки одежды
         {
             this.AutoSewUp = argument;
             if (this.AutoSewUp == true)

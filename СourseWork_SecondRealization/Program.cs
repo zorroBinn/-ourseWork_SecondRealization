@@ -12,7 +12,7 @@ namespace СourseWork_SecondRealization
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main() //Главная функция проекта, точка запуска
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

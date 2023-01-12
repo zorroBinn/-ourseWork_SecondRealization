@@ -2,33 +2,33 @@
 
 namespace СourseWork_SecondRealization
 {
-    internal class Realty
+    internal class Realty //Класс "Имущество"
     {
-        private String Housing;
-        private String Vehicle;
+        private String Housing; //Недвижимость
+        private String Vehicle; //Транспортное средство
 
-        public Realty()
+        public Realty() //Конструктор без параметров
         {
             this.Housing = "Гараж";
             this.Vehicle = "Велик";
         }
 
-        public String GetHousing()
+        public String GetHousing() //Геттер недвижимости
         {
             return this.Housing;
         }
 
-        public void SetHousing(String housing)
+        public void SetHousing(String housing) //Сеттер недвижимости
         {
             this.Housing = housing;
         }
 
-        public String GetVehicle()
+        public String GetVehicle() //Геттер транспортного средства
         {
             return this.Vehicle;
         }
 
-        public void SetVehicle(String vehicle)
+        public void SetVehicle(String vehicle) //Сеттер транспортного средства
         {
             this.Vehicle = vehicle;
         }

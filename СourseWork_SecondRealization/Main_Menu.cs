@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace СourseWork_SecondRealization
 {
-    public partial class Main_Menu : Form
+    public partial class Main_Menu : Form //Форма главного меню (начальная форма)
     {
         public Main_Menu()
         {
             InitializeComponent();
         }
 
-        private void TextStartButtonSet()
+        private void TextStartButtonSet() //Метод определения текста кнопки "Играть" в зависимости от наличия файла сохранения
         {
             try
             {
@@ -40,17 +40,17 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        private void ExitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e) //Закрытие формы, завершение работы приложения по нажатию кнопки
         {
             this.Close();
         }
 
-        private void AboutGameButton_Click(object sender, EventArgs e)
+        private void AboutGameButton_Click(object sender, EventArgs e) //Отображение краткой справки об игре по нажатию кнопки
         {
             MessageBox.Show("Добро пожаловать в игру <<Life simulator>>(Симулятор жизни)!\nЗдесь вам предстоит пройти путь от безработного до мультимиллиардера!\nПокупка одежды, недвижимости и машин.\nВсегда следите за своим здоровьем и другими показателями!\nУдачи!", "Об игре", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void SaveDeleteButton_Click(object sender, EventArgs e)
+        private void SaveDeleteButton_Click(object sender, EventArgs e) //Удаление сохранения (при его наличии) по нажатию кнопки
         {
             if (File.Exists("save.save") == true)
             {
@@ -64,7 +64,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        private void GameStartButton_Click(object sender, EventArgs e)
+        private void GameStartButton_Click(object sender, EventArgs e) //Запуск формы игры или создания персонажа по нажатию кнопки
         {
             if (this.GameStartButton.Text == "Начать игру")
             {
@@ -82,7 +82,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        private void Main_Menu_Activated(object sender, EventArgs e)
+        private void Main_Menu_Activated(object sender, EventArgs e) //Действие при отображении формы
         {
             if (File.Exists("save.save") == true)
             {

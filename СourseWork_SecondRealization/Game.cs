@@ -5,10 +5,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace СourseWork_SecondRealization
 {
-    public partial class Game : Form
+    public partial class Game : Form //Форма непосредственно игры
     {
-        private Worker worker;
-        private Int32 Day;
+        private Worker worker; //Персонаж (работник)
+        private Int32 Day; //Игровой день
         public Game()
         {
             InitializeComponent();
@@ -16,20 +16,24 @@ namespace СourseWork_SecondRealization
             DataInitialization();
         }
 
-        void DataInitialization()
+        private void DataInitialization() //Считывание данных из файла сохранения, заполнение полей формы (при запуске формы)
         {
             if (File.Exists("save.save") == true)
             {
                 try
                 {
                     StreamReader f = File.OpenText("save.save");
-                    worker.SetName(f.ReadLine());
-                    worker.SetSex(f.ReadLine());
-                    worker.SetAge(Convert.ToInt32(f.ReadLine()));
-                    worker.SetMoneyBalance(Convert.ToInt32(f.ReadLine()));
-                    worker.GetMedCard().SetWeight(Convert.ToInt32(f.ReadLine()));
-                    worker.GetMedCard().SetHeight(Convert.ToInt32(f.ReadLine()));
-                    worker.GetMedCard().SetHealthStatus(Convert.ToInt32(f.ReadLine()));
+                    //
+                    //Построчное считывание данных из файла сохранения save.save
+                    //
+                    worker.SetName(f.ReadLine()); //Имя
+                    worker.SetSex(f.ReadLine()); //Пол
+                    worker.SetAge(Convert.ToInt32(f.ReadLine())); //Возраст
+                    worker.SetMoneyBalance(Convert.ToInt32(f.ReadLine())); //Balance
+                    worker.GetMedCard().SetWeight(Convert.ToInt32(f.ReadLine())); //Вес
+                    worker.GetMedCard().SetHeight(Convert.ToInt32(f.ReadLine())); //Рост
+                    worker.GetMedCard().SetHealthStatus(Convert.ToInt32(f.ReadLine())); //HealthStatus
+                    //InfinityHealth
                     if (f.ReadLine() == "0")
                     {
                         worker.GetMedCard().SetInfinityHealth(false);
@@ -39,12 +43,13 @@ namespace СourseWork_SecondRealization
                         worker.GetMedCard().SetInfinityHealth(true);
                         this.autohealthbutton.BackColor = System.Drawing.Color.LimeGreen;
                     }
-                    worker.SetNamework(f.ReadLine());
-                    worker.SetPayment(Convert.ToInt32(f.ReadLine()));
-                    worker.GetClothes().SetBody(f.ReadLine());
-                    worker.GetClothes().SetPants(f.ReadLine());
-                    worker.GetClothes().SetShoes(f.ReadLine());
-                    worker.GetClothes().SetClothesStatus(Convert.ToInt32(f.ReadLine()));
+                    worker.SetNamework(f.ReadLine()); //Наименование работы
+                    worker.SetPayment(Convert.ToInt32(f.ReadLine())); //Payment
+                    worker.GetClothes().SetBody(f.ReadLine()); //Верх одежды
+                    worker.GetClothes().SetPants(f.ReadLine()); //Штаны
+                    worker.GetClothes().SetShoes(f.ReadLine()); //Обувь
+                    worker.GetClothes().SetClothesStatus(Convert.ToInt32(f.ReadLine())); //ClothesStatus
+                    //AutoSewUp
                     if (f.ReadLine() == "0")
                     {
                         worker.GetClothes().SetAutoSewUp(false);
@@ -54,10 +59,11 @@ namespace СourseWork_SecondRealization
                         worker.GetClothes().SetAutoSewUp(true);
                         this.autosewupbutton.BackColor = System.Drawing.Color.LimeGreen;
                     }
-                    worker.GetRealty().SetHousing(f.ReadLine());
-                    worker.GetRealty().SetVehicle(f.ReadLine());
-                    worker.SetLevel(Convert.ToInt32(f.ReadLine()));
-                    worker.GetFood().SetSatietyStatus(Convert.ToInt32(f.ReadLine()));
+                    worker.GetRealty().SetHousing(f.ReadLine()); //Недвижимость
+                    worker.GetRealty().SetVehicle(f.ReadLine()); //Транспортное средство
+                    worker.SetLevel(Convert.ToInt32(f.ReadLine())); //Level
+                    worker.GetFood().SetSatietyStatus(Convert.ToInt32(f.ReadLine())); //SatietyStatus
+                    //AutoEating
                     if (f.ReadLine() == "0")
                     {
                         worker.GetFood().SetAutoEating(false);
@@ -67,7 +73,7 @@ namespace СourseWork_SecondRealization
                         worker.GetFood().SetAutoEating(true);
                         this.autoeatbutton.BackColor = System.Drawing.Color.LimeGreen;
                     }
-                    Day = Convert.ToInt32(f.ReadLine());
+                    Day = Convert.ToInt32(f.ReadLine()); //Day
                     f.Close();
 
                     SatietyUpdating();
@@ -135,7 +141,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void RealtyInitialization()
+        private void RealtyInitialization() //Возможность покупки нового имущества в зависимости от текущего
         {
             if (worker.GetRealty().GetHousing() == "Квартира")
             {
@@ -181,7 +187,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void DayUpdating()
+        private void DayUpdating() //Обновление дня, подарок в случае дня рождения
         {
             this.Day++;
             this.infoday.Text = Convert.ToString(Day);
@@ -213,25 +219,25 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void MoneyBalanceUpdating()
+        private void MoneyBalanceUpdating() //Обновлнеие полей формы, отображающих игровой баланс
         {
             this.infomoneybalance.Text = Convert.ToString(worker.GetMoneybalance());
             this.humanbalance.Text = Convert.ToString(worker.GetMoneybalance());
         }
 
-        void SatietyUpdating()
+        private void SatietyUpdating() //Обновление полей формы, отображающих статус сытости
         {
             this.infosatietypercent.Text = Convert.ToString(worker.GetFood().GetSatietyStatus());
             this.satiety.Text = Convert.ToString(worker.GetFood().GetSatietyStatus());
         }
 
-        void HealthUpdating()
+        void HealthUpdating() //Обновление полей формы, отображающих статус здоровья
         {
             this.infohealthpercent.Text = Convert.ToString(worker.GetMedCard().GetHealthStatus());
             this.health.Text = Convert.ToString(worker.GetMedCard().GetHealthStatus());
         }
 
-        void LevelUp()
+        private void LevelUp() //Повышение уровня персонажа (определение нового рабочего места и оплаты)
         {
             if (worker.GetMoneybalance() > 1000000 && worker.GetLevel() < 7)
             {
@@ -284,18 +290,21 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void UpdatingLevelUp()
+        private void UpdatingLevelUp() //Полвышение уровня работника, обновление полей работы
         {
             worker.LevelUp();
             this.Namework.Text = worker.GetNamework();
             this.payment.Text = Convert.ToString(worker.GetPayment());
         }
 
-        void GameSave()
+        private void GameSave() //Сохранение игры
         {
             try
             {
                 StreamWriter f = new StreamWriter("save.save", false);
+                //
+                //В файле sava.save построчно хранится информация от персонаже
+                //
                 f.WriteLine(worker.GetName());
                 f.WriteLine(worker.GetSex());
                 f.WriteLine(worker.GetAge());
@@ -346,7 +355,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        Boolean GameLoss()
+        private Boolean GameLoss() //Проверка условий проигрыша
         {
             bool lossrate = false;
             while (lossrate == false)
@@ -392,7 +401,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void персонажToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void персонажToolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации о персонаже по кнопке
         {
             this.groupBoxworker.Visible = false;
             this.groupBoxfood.Visible = false;
@@ -402,7 +411,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxhuman.Visible = true;
         }
 
-        void здоровьеToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void здоровьеToolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации о медицинской карте по кнопке
         {
             this.groupBoxhuman.Visible = false;
             this.groupBoxfood.Visible = false;
@@ -412,7 +421,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxmd.Visible = true;
         }
 
-        void имуществоToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void имуществоToolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации об имуществе по кнопке
         {
             this.groupBoxhuman.Visible = false;
             this.groupBoxfood.Visible = false;
@@ -422,7 +431,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxrealty.Visible = true;
         }
 
-        void работаToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void работаToolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации о работе по кнопке
         {
             this.groupBoxhuman.Visible = false;
             this.groupBoxfood.Visible = false;
@@ -432,7 +441,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxworker.Visible = true;
         }
 
-        void одеждаToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void одеждаToolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации об одежде по кнопке
         {
             this.groupBoxhuman.Visible = false;
             this.groupBoxfood.Visible = false;
@@ -442,7 +451,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxclothes.Visible = true;
         }
 
-        void едаtoolStripMenuItem_Click(Object sender, EventArgs e)
+        private void едаtoolStripMenuItem_Click(Object sender, EventArgs e) //Отображение информации о питании по кнопке
         {
             this.groupBoxfood.Visible = true;
             this.groupBoxrealty.Visible = false;
@@ -452,7 +461,7 @@ namespace СourseWork_SecondRealization
             this.groupBoxclothes.Visible = false;
         }
 
-        void checkBoxhouse_CheckedChanged(Object sender, EventArgs e)
+        private void checkBoxhouse_CheckedChanged(Object sender, EventArgs e) //Выбор предложения недвижимости по флажку
         {
             if (this.checkBoxhouse.Checked == true)
             {
@@ -472,7 +481,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void checkBoxcar_CheckedChanged(Object sender, EventArgs e)
+        private void checkBoxcar_CheckedChanged(Object sender, EventArgs e) //Выбор предложения по транспортному средству по флажку
         {
             if (this.checkBoxcar.Checked == true)
             {
@@ -492,7 +501,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void Game_FormClosing(Object sender, FormClosingEventArgs e)
+        private void Game_FormClosing(Object sender, FormClosingEventArgs e) //Действие при выходе из формы, возврат в форму главного меню
         {
             DialogResult result = MessageBox.Show("Вы уврены, что хотите выйти?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
@@ -510,7 +519,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void buysuitbutton_Click(Object sender, EventArgs e)
+        private void buysuitbutton_Click(Object sender, EventArgs e) //Покупка костюма по кнопке
         {
             if (worker.GetMoneybalance() >= 5000)
             {
@@ -530,7 +539,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void buttonsewup_Click(Object sender, EventArgs e)
+        private void buttonsewup_Click(Object sender, EventArgs e) //Починка одежды по кнопке
         {
             if ((worker.GetMoneybalance() >= 5 && worker.GetClothes().GetPants() != "Брюки") || (worker.GetMoneybalance() >= 10 && worker.GetClothes().GetPants() == "Брюки"))
             {
@@ -560,7 +569,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void workingbutton_Click(Object sender, EventArgs e)
+        private void workingbutton_Click(Object sender, EventArgs e) //Действие "Работать" по кнопке
         {
             if (GameLoss() == false)
             {
@@ -612,7 +621,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void healthbutton_Click(Object sender, EventArgs e)
+        private void healthbutton_Click(Object sender, EventArgs e) //Лечение по кнопке
         {
             if (worker.GetMoneybalance() >= 10)
             {
@@ -635,7 +644,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void buybutton_Click(Object sender, EventArgs e)
+        private void buybutton_Click(Object sender, EventArgs e) //Покупка выбранного имущества по кнопке
         {
             if (this.checkBoxhouse.Checked == true)
             {
@@ -742,7 +751,7 @@ namespace СourseWork_SecondRealization
             GameLoss();
         }
 
-        void boostersbutton_Click(Object sender, EventArgs e)
+        private void boostersbutton_Click(Object sender, EventArgs e) //Отображение меню бустеров по кнопке
         {
             if (this.groupBoxboosters.Visible == false)
             {
@@ -754,7 +763,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void onefoodbutton_Click(System.Object sender, System.EventArgs e)
+        private void onefoodbutton_Click(System.Object sender, System.EventArgs e) //Первый вариант питания по кнопке (фастфуд)
         {
             if (worker.GetMoneybalance() >= 5)
             {
@@ -777,7 +786,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void twofoodbutton_Click(System.Object sender, System.EventArgs e)
+        private void twofoodbutton_Click(System.Object sender, System.EventArgs e) //Второй вариант питания по кнопке (кафе)
         {
             if (worker.GetMoneybalance() >= 20)
             {
@@ -800,7 +809,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void threebutton_Click(Object sender, EventArgs e)
+        private void threebutton_Click(Object sender, EventArgs e) //Третий вариант питания по кнопке (ресторан)
         {
             if (worker.GetMoneybalance() >= 100)
             {
@@ -823,7 +832,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void autoeatbutton_Click(Object sender, EventArgs e)
+        private void autoeatbutton_Click(Object sender, EventArgs e) //Активания бустера "автопитание" по кнопке
         {
             if (worker.GetFood().GetAutoEating() == false)
             {
@@ -847,7 +856,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void autosewupbutton_Click(Object sender, EventArgs e)
+        private void autosewupbutton_Click(Object sender, EventArgs e) //Активация бустера "автопочинка одежды" по кнопке
         {
             if (worker.GetClothes().GetAutoSewUp() == false)
             {
@@ -871,7 +880,7 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void autohealthbutton_Click(Object sender, EventArgs e)
+        private void autohealthbutton_Click(Object sender, EventArgs e) //Активация бустера "автолечение" по кнопке
         {
             if (worker.GetMedCard().GetInfinityHealth() == false)
             {
@@ -895,39 +904,39 @@ namespace СourseWork_SecondRealization
             }
         }
 
-        void ToolTipShow(Button buttonname, String text)
+        private void ToolTipShow(Button buttonname, String text) //Определение(создание) новой всплывающей подсказки
         {
             ToolTip  t = new ToolTip();
             t.SetToolTip(buttonname, text);
             t.AutomaticDelay = 120;
         }
 
-        void onefoodbutton_MouseHover(Object sender, EventArgs e)
+        private void onefoodbutton_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на первый вариант питания
         {
             ToolTipShow(onefoodbutton, "+20%");
         }
 
-        void twofoodbutton_MouseHover(Object sender, EventArgs e)
+        private void twofoodbutton_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на второй вариант питания
         {
             ToolTipShow(twofoodbutton, "+40%");
         }
 
-        void threebutton_MouseHover(Object sender, EventArgs e)
+        private void threebutton_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на третий вариант питания
         {
             ToolTipShow(threebutton, "+100%");
         }
 
-        void healthbutton_MouseHover(Object sender, EventArgs e)
+        private void healthbutton_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на лечение
         {
             ToolTipShow(healthbutton, "+35%");
         }
 
-        void buttonsewup_MouseHover(Object sender, EventArgs e)
+        private void buttonsewup_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на починку одежды
         {
             ToolTipShow(buttonsewup, "+20%");
         }
 
-        void buysuitbutton_MouseHover(Object sender, EventArgs e)
+        private void buysuitbutton_MouseHover(Object sender, EventArgs e) //Всплывающая подсказка на покупку костюма
         {
             ToolTipShow(buysuitbutton, "Костюм меньше изнашивается");
         }
